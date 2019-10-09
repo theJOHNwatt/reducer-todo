@@ -5,7 +5,7 @@ import {initialState, reducer} from "../reducers/TodoReducer";
 export const TodoList = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [input, setInput] = useState([]);
+    const [input, setInput] = useState();
 
     
     
@@ -20,9 +20,7 @@ export const TodoList = () => {
     
     return(
         <div>
-            <form  
-            
-            >
+            <form>
                 <input
                     className="inputField"
                     type="text"
@@ -36,8 +34,9 @@ export const TodoList = () => {
             <button onClick={() => 
             dispatch({type:"ADD_ITEM", payload: input})} > 
             Add </button>
+            
             {state.todo.map(item => (
-                <div key={item.id} onClick={() => dispatch({type: 'TOGGLE_COMPLETED'})}>
+                <div key={item.id} onClick={() => dispatch({type: 'TOGGLE_TODO', payload: {item}})}>
                 <p >{item.item}</p>
                 </div>
             ))} 

@@ -1,7 +1,7 @@
-export const initialState = {todo:[]};
+export const initialState = {todo:[{item: 'Clean', id: 1, completed: false}, {item: 'Grocery Shopping', id: 2, completed: false}]};
 
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (state , action) => {
     console.log(state)
     switch(action.type){
         case "ADD_ITEM":
@@ -14,20 +14,21 @@ export const reducer = (state = initialState, action) => {
             return{
                 ...state, todo: [...state.todo, newItem]
             };
-        case 'TOGGLE_COMPLETED':
-            return state.todo.map(item => {
-                if (item.id !== action.id) {
-                    return item;
-                }
-                return {
-                    ...item,
-                    completed: !item.completed
-                }
-            })
+            case 'TOGGLE_TODO':
+                    return {todo: state.todo.map(todo => {
+                      if (todo.id === action.payload.id) {
+                        return todo;
+                      }else
+              
+                      return {
+                        ...todo,
+                        completed: !todo.completed
+                    };
+                    })}
         case 'CLEAR_COMPLETED':
             return {
                 ...state,
-                state: state.filter(item => !item.completed)
+                todo: state.todo.filter(item => item.completed)
 
             }
             default:
