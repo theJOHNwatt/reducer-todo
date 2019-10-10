@@ -14,17 +14,20 @@ export const reducer = (state , action) => {
             return{
                 ...state, todo: [...state.todo, newItem]
             };
-            case 'TOGGLE_TODO':
-                    return {todo: state.todo.map(todo => {
-                      if (todo.id === action.payload.id) {
-                        return todo;
-                      }else
-              
-                      return {
-                        ...todo,
-                        completed: !todo.completed
-                    };
-                    })}
+             case 'TOGGLE_TODO':
+            return  { todo: state.todo.map(item => {
+
+                if (item.id !== action.payload.id) {
+                    return {
+                        ...item,
+                        completed: !item.completed
+                    }
+                }
+                else {
+                    return item
+                
+            }
+            })}
         case 'CLEAR_COMPLETED':
             return {
                 ...state,
